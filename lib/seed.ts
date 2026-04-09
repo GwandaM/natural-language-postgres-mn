@@ -78,6 +78,3 @@ export async function seed() {
     unicorns: results,
   };
 }
-
-
-seed().catch(console.error);
