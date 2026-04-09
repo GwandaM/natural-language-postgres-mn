@@ -4,6 +4,7 @@ import { Config, configSchema, explanationsSchema, Result } from "@/lib/types";
 import { DashboardInsights } from "@/lib/insights";
 import { sql } from "@vercel/postgres";
 import { generateText, Output } from "ai";
+import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
 export const getDashboardInsights = async (): Promise<{
@@ -39,7 +40,7 @@ export const generateQuery = async (input: string) => {
   "use server";
   try {
     const { output } = await generateText({
-      model: "openai/gpt-5.4-mini",
+      model: google("gemini-2.0-flash"),
       system: `You are a SQL (postgres) and data visualization expert. Your job is to help the user write a SQL query to retrieve the data they need. The table schema is as follows:
 
       unicorns (
@@ -135,7 +136,7 @@ export const explainQuery = async (input: string, sqlQuery: string) => {
   "use server";
   try {
     const { output } = await generateText({
-      model: "openai/gpt-5.4-mini",
+      model: google("gemini-2.0-flash"),
       output: Output.object({
         schema: z.object({
           explanations: explanationsSchema,
@@ -181,7 +182,7 @@ export const generateChartConfig = async (
 
   try {
     const { output: config } = await generateText({
-      model: "openai/gpt-5.4-mini",
+      model: google("gemini-2.0-flash"),
       system,
       prompt: `Given the following data from a SQL query result, generate the chart config that best visualises the data and answers the users query.
       For multiple groups use multi-lines.

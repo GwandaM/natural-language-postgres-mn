@@ -8,6 +8,7 @@
 
 import { sql } from "@vercel/postgres";
 import { generateText } from "ai";
+import { google } from "@ai-sdk/google";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -237,7 +238,7 @@ async function fetchGeoDistribution(): Promise<GeoRow[]> {
 
 async function generateCaption(prompt: string): Promise<string> {
   const { text } = await generateText({
-    model: "openai/gpt-5.4-mini",
+    model: google("gemini-2.0-flash"),
     prompt,
     maxTokens: 120,
   });
