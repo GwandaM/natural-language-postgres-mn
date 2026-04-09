@@ -27,12 +27,13 @@ export async function POST(req: NextRequest) {
     // Upsert each insight key as a separate row for easy partial reads
     const entries = Object.entries(insights) as [string, unknown][];
     for (const [key, value] of entries) {
-      await sql`
-        INSERT INTO dashboard_insights (insight_key, data, generated_at)
-        VALUES (${key}, ${JSON.stringify(value)}, NOW())
-        ON CONFLICT (insight_key)
-        DO UPDATE SET data = EXCLUDED.data, generated_at = EXCLUDED.generated_at;
-      `;
+      await sql.query(
+        `INSERT INTO dashboard_insights (insight_key, data, generated_at)
+         VALUES ($1, $2::jsonb, NOW())
+         ON CONFLICT (insight_key)
+         DO UPDATE SET data = EXCLUDED.data, generated_at = EXCLUDED.generated_at`,
+        [key, JSON.stringify(value)]
+      );
     }
 
     return NextResponse.json({
