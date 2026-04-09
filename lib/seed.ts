@@ -31,7 +31,7 @@ export async function seed() {
   const createTable = await sql`
     CREATE TABLE IF NOT EXISTS unicorns (
       id SERIAL PRIMARY KEY,
-      company VARCHAR(255) NOT NULL UNIQUE,
+      company VARCHAR(255) NOT NULL,
       valuation DECIMAL(10, 2) NOT NULL,
       date_joined DATE,
       country VARCHAR(255) NOT NULL,
@@ -68,7 +68,6 @@ export async function seed() {
         ${row.Industry},
         ${row['Select Investors']}
       )
-      ON CONFLICT (company) DO NOTHING;
     `;
   }
 
