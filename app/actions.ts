@@ -2,7 +2,7 @@
 
 import { Config, configSchema, explanationsSchema, Result } from "@/lib/types";
 import { DashboardInsights } from "@/lib/insights";
-import { sql } from "@vercel/postgres";
+import { sql } from "@/lib/db";
 import { generateText, Output } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";

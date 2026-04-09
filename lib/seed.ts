@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { sql } from './db';
 import fs from 'fs';
 import csv from 'csv-parser';
 import path from 'path';

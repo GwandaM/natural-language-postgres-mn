@@ -6,7 +6,7 @@
  * names or domain changes.
  */
 
-import { sql } from "@vercel/postgres";
+import { sql } from "@/lib/db";
 import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 

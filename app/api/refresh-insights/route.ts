@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@vercel/postgres";
+import { sql } from "@/lib/db";
 import { generateAllInsights } from "@/lib/insights";
 import { createDashboardInsightsTable } from "@/lib/seed";
 
